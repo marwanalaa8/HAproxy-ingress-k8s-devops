@@ -1,0 +1,89 @@
+# 🚀 HAProxy Ingress Controller on Kubernetes
+**DevOps Project – Production-Ready Deployment (Tested on Kind)**
+
+![HAProxy](https://img.shields.io/badge/HAProxy-Ingress_Controller-006D8B?style=for-the-badge&logo=haproxy)
+![Kubernetes](https://img.shields.io/badge/Kubernetes-v1.31-326CE5?style=for-the-badge&logo=kubernetes)
+![Kind](https://img.shields.io/badge/Tested_with-Kind-00A9E0?style=for-the-badge)
+
+---
+
+## 📌 Project Overview
+
+This project demonstrates a fully operational deployment of the **HAProxy Kubernetes Ingress Controller** with full RBAC, a dedicated namespace, a secure ServiceAccount, and NodePort access via `hostNetwork` mode for seamless operation on **Kind clusters**.
+
+**Deployment Status:** ✅ Stable & Fully Working
+
+---
+
+## 🏗️ Architecture Diagram
+
+(Insert Architecture Diagram Image Here)
+
+---
+
+## 🧩 Components Deployed
+
+| Component | Name | Description |
+|----------|------|-------------|
+| Namespace | haproxy-controller-devops | Isolated environment for all resources |
+| ServiceAccount | haproxy-service-account-devops | Controller identity & access permissions |
+| ClusterRole | haproxy-cluster-role-devops | Required RBAC permissions |
+| ClusterRoleBinding | haproxy-cluster-role-binding-devops | Binds ServiceAccount with ClusterRole |
+| Default Backend | backend-deployment-devops | Uses Google defaultbackend image |
+| Ingress Controller | haproxy-ingress-devops | Runs haproxytech/kubernetes-ingress:latest |
+| NodePort Service | ingress-service-devops | Exposes ports 32456, 32567, 32678 |
+
+---
+
+## 🌐 Accessing the Services (Kind + hostNetwork)
+
+Get the Kind node IP:
+
+kubectl get nodes -o wide
+| Service       | Port  | URL                    | Expected Output            |
+| ------------- | ----- | ---------------------- | -------------------------- |
+| HTTP Traffic  | 32456 | http://<NODE-IP>:32456 | Default backend (404 page) |
+| HAProxy Stats | 32678 | http://<NODE-IP>:32678 | Stats UI (admin/admin)     |
+
+---
+
+## 🧾 Proof of Successful Deployment
+kubectl get all -n haproxy-controller-devops -o wide
+
+
+Expected Output:
+
+✔️ All pods running
+
+✔️ Services exposed correctly
+
+✔️ Controller logs healthy
+
+---
+
+## 🚀 How to Deploy
+kubectl apply -f manifests/
+
+---
+
+## 🧹 Cleanup
+kubectl delete -f manifests/
+
+---
+
+## 👩‍💻 Project Owner
+
+Marwan Alaa (@marwanalaa8)
+
+---
+
+## 🖥️ Environment
+
+- Ubuntu 22.04
+- Kind
+- Kubernetes v1.31
+
+
+---
+
+## ✨ Thank you for reviewing my DevOps project!
